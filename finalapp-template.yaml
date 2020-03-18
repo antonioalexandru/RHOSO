@@ -1,0 +1,2620 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/deployment-config.latest-version: "2"
+      openshift.io/deployment-config.name: antonio-mysql-nfs
+      openshift.io/deployment.name: antonio-mysql-nfs-2
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-03-09T12:11:48Z
+    generateName: antonio-mysql-nfs-2-
+    labels:
+      app: antonio-mysql-nfs
+      deployment: antonio-mysql-nfs-2
+      deploymentconfig: antonio-mysql-nfs
+    name: antonio-mysql-nfs-2-qlc47
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: antonio-mysql-nfs-2
+      uid: 25762569-61ff-11ea-ae21-fa163e1a31ab
+    resourceVersion: "2469503"
+    selfLink: /api/v1/namespaces/antonio/pods/antonio-mysql-nfs-2-qlc47
+    uid: 2726be26-61ff-11ea-ae21-fa163e1a31ab
+  spec:
+    containers:
+    - env:
+      - name: MYSQL_ROOT_PASSWORD
+        value: test
+      image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      imagePullPolicy: IfNotPresent
+      name: antonio-mysql-nfs
+      ports:
+      - containerPort: 3306
+        protocol: TCP
+      resources: {}
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1000180000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/lib/mysql
+        name: pv-antonio-nfs
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-b6pcv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-66lnj
+    nodeName: localhost
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000180000
+      seLinuxOptions:
+        level: s0:c13,c12
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    volumes:
+    - name: pv-antonio-nfs
+      persistentVolumeClaim:
+        claimName: pvc-antonio-nfs
+    - name: default-token-b6pcv
+      secret:
+        defaultMode: 420
+        secretName: default-token-b6pcv
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T12:11:49Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T12:11:51Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T12:11:48Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://d07e28f361f78ba872469a5d7e3f4611b4a730f8765576e9139ff42b89650713
+      image: sha256:8ef375298394132e15e73b900150b54a3340b3d3a80cf2c6adca0a25c904519e
+      imageID: docker-pullable://172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      lastState: {}
+      name: antonio-mysql-nfs
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: 2020-03-09T12:11:51Z
+    hostIP: 9.212.159.114
+    phase: Running
+    podIP: 172.17.0.14
+    qosClass: BestEffort
+    startTime: 2020-03-09T12:11:49Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/build.name: antonionodeapp-1
+      openshift.io/scc: privileged
+    creationTimestamp: 2020-03-09T08:38:37Z
+    labels:
+      openshift.io/build.name: antonionodeapp-1
+    name: antonionodeapp-1-build
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: build.openshift.io/v1
+      controller: true
+      kind: Build
+      name: antonionodeapp-1
+      uid: 5e8b7485-61e1-11ea-889a-fa163e1a31ab
+    resourceVersion: "2417173"
+    selfLink: /api/v1/namespaces/antonio/pods/antonionodeapp-1-build
+    uid: 5e9c2005-61e1-11ea-ae21-fa163e1a31ab
+  spec:
+    containers:
+    - args:
+      - --loglevel=0
+      command:
+      - openshift-sti-build
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"build.openshift.io/v1","metadata":{"name":"antonionodeapp-1","namespace":"antonio","selfLink":"/apis/build.openshift.io/v1/namespaces/antonio/builds/antonionodeapp-1","uid":"5e8b7485-61e1-11ea-889a-fa163e1a31ab","resourceVersion":"2417057","creationTimestamp":"2020-03-09T08:38:36Z","labels":{"app":"antonionodeapp","buildconfig":"antonionodeapp","openshift.io/build-config.name":"antonionodeapp","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"antonionodeapp","openshift.io/build.number":"1"},"ownerReferences":[{"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","name":"antonionodeapp","uid":"5e786d90-61e1-11ea-889a-fa163e1a31ab","controller":true}]},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/antonioalexandru/DO288-apps/"},"contextDir":"final_project/app"},"strategy":{"type":"Source","sourceStrategy":{"from":{"kind":"DockerImage","name":"172.30.1.1:5000/openshift/nodejs@sha256:3cc041334eef8d5853078a0190e46a2998a70ad98320db512968f1de0561705e"},"pullSecret":{"name":"builder-dockercfg-d96gh"}}},"output":{"to":{"kind":"DockerImage","name":"172.30.1.1:5000/antonio/antonionodeapp:latest"},"pushSecret":{"name":"builder-dockercfg-d96gh"}},"resources":{},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Build configuration change"}]},"status":{"phase":"New","outputDockerImageReference":"172.30.1.1:5000/antonio/antonionodeapp:latest","config":{"kind":"BuildConfig","namespace":"antonio","name":"antonionodeapp"},"output":{}}}
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/antonioalexandru/DO288-apps/
+      - name: SOURCE_URI
+        value: https://github.com/antonioalexandru/DO288-apps/
+      - name: SOURCE_CONTEXT_DIR
+        value: final_project/app
+      - name: ALLOWED_UIDS
+        value: 1-
+      - name: DROP_CAPS
+        value: KILL,MKNOD,SETGID,SETUID
+      - name: PUSH_DOCKERCFG_PATH
+        value: /var/run/secrets/openshift.io/push
+      - name: PULL_DOCKERCFG_PATH
+        value: /var/run/secrets/openshift.io/pull
+      image: openshift/origin-docker-builder:v3.11
+      imagePullPolicy: IfNotPresent
+      name: sti-build
+      resources: {}
+      securityContext:
+        privileged: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+      - mountPath: /tmp/build
+        name: buildworkdir
+      - mountPath: /var/run/docker.sock
+        name: docker-socket
+      - mountPath: /var/run/crio/crio.sock
+        name: crio-socket
+      - mountPath: /var/run/secrets/openshift.io/push
+        name: builder-dockercfg-d96gh-push
+        readOnly: true
+      - mountPath: /var/run/secrets/openshift.io/pull
+        name: builder-dockercfg-d96gh-pull
+        readOnly: true
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-ts9zd
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: builder-dockercfg-d96gh
+    initContainers:
+    - args:
+      - --loglevel=0
+      command:
+      - openshift-git-clone
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"build.openshift.io/v1","metadata":{"name":"antonionodeapp-1","namespace":"antonio","selfLink":"/apis/build.openshift.io/v1/namespaces/antonio/builds/antonionodeapp-1","uid":"5e8b7485-61e1-11ea-889a-fa163e1a31ab","resourceVersion":"2417057","creationTimestamp":"2020-03-09T08:38:36Z","labels":{"app":"antonionodeapp","buildconfig":"antonionodeapp","openshift.io/build-config.name":"antonionodeapp","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"antonionodeapp","openshift.io/build.number":"1"},"ownerReferences":[{"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","name":"antonionodeapp","uid":"5e786d90-61e1-11ea-889a-fa163e1a31ab","controller":true}]},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/antonioalexandru/DO288-apps/"},"contextDir":"final_project/app"},"strategy":{"type":"Source","sourceStrategy":{"from":{"kind":"DockerImage","name":"172.30.1.1:5000/openshift/nodejs@sha256:3cc041334eef8d5853078a0190e46a2998a70ad98320db512968f1de0561705e"},"pullSecret":{"name":"builder-dockercfg-d96gh"}}},"output":{"to":{"kind":"DockerImage","name":"172.30.1.1:5000/antonio/antonionodeapp:latest"},"pushSecret":{"name":"builder-dockercfg-d96gh"}},"resources":{},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Build configuration change"}]},"status":{"phase":"New","outputDockerImageReference":"172.30.1.1:5000/antonio/antonionodeapp:latest","config":{"kind":"BuildConfig","namespace":"antonio","name":"antonionodeapp"},"output":{}}}
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/antonioalexandru/DO288-apps/
+      - name: SOURCE_URI
+        value: https://github.com/antonioalexandru/DO288-apps/
+      - name: SOURCE_CONTEXT_DIR
+        value: final_project/app
+      - name: ALLOWED_UIDS
+        value: 1-
+      - name: DROP_CAPS
+        value: KILL,MKNOD,SETGID,SETUID
+      image: openshift/origin-docker-builder:v3.11
+      imagePullPolicy: IfNotPresent
+      name: git-clone
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+      - mountPath: /tmp/build
+        name: buildworkdir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-ts9zd
+        readOnly: true
+    - args:
+      - --loglevel=0
+      command:
+      - openshift-manage-dockerfile
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"build.openshift.io/v1","metadata":{"name":"antonionodeapp-1","namespace":"antonio","selfLink":"/apis/build.openshift.io/v1/namespaces/antonio/builds/antonionodeapp-1","uid":"5e8b7485-61e1-11ea-889a-fa163e1a31ab","resourceVersion":"2417057","creationTimestamp":"2020-03-09T08:38:36Z","labels":{"app":"antonionodeapp","buildconfig":"antonionodeapp","openshift.io/build-config.name":"antonionodeapp","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"antonionodeapp","openshift.io/build.number":"1"},"ownerReferences":[{"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","name":"antonionodeapp","uid":"5e786d90-61e1-11ea-889a-fa163e1a31ab","controller":true}]},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/antonioalexandru/DO288-apps/"},"contextDir":"final_project/app"},"strategy":{"type":"Source","sourceStrategy":{"from":{"kind":"DockerImage","name":"172.30.1.1:5000/openshift/nodejs@sha256:3cc041334eef8d5853078a0190e46a2998a70ad98320db512968f1de0561705e"},"pullSecret":{"name":"builder-dockercfg-d96gh"}}},"output":{"to":{"kind":"DockerImage","name":"172.30.1.1:5000/antonio/antonionodeapp:latest"},"pushSecret":{"name":"builder-dockercfg-d96gh"}},"resources":{},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Build configuration change"}]},"status":{"phase":"New","outputDockerImageReference":"172.30.1.1:5000/antonio/antonionodeapp:latest","config":{"kind":"BuildConfig","namespace":"antonio","name":"antonionodeapp"},"output":{}}}
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/antonioalexandru/DO288-apps/
+      - name: SOURCE_URI
+        value: https://github.com/antonioalexandru/DO288-apps/
+      - name: SOURCE_CONTEXT_DIR
+        value: final_project/app
+      - name: ALLOWED_UIDS
+        value: 1-
+      - name: DROP_CAPS
+        value: KILL,MKNOD,SETGID,SETUID
+      image: openshift/origin-docker-builder:v3.11
+      imagePullPolicy: IfNotPresent
+      name: manage-dockerfile
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+      - mountPath: /tmp/build
+        name: buildworkdir
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-ts9zd
+        readOnly: true
+    nodeName: localhost
+    priority: 0
+    restartPolicy: Never
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: builder
+    serviceAccountName: builder
+    terminationGracePeriodSeconds: 30
+    volumes:
+    - emptyDir: {}
+      name: buildworkdir
+    - hostPath:
+        path: /var/run/docker.sock
+        type: ""
+      name: docker-socket
+    - hostPath:
+        path: /var/run/crio/crio.sock
+        type: ""
+      name: crio-socket
+    - name: builder-dockercfg-d96gh-push
+      secret:
+        defaultMode: 384
+        secretName: builder-dockercfg-d96gh
+    - name: builder-dockercfg-d96gh-pull
+      secret:
+        defaultMode: 384
+        secretName: builder-dockercfg-d96gh
+    - name: builder-token-ts9zd
+      secret:
+        defaultMode: 420
+        secretName: builder-token-ts9zd
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T08:38:43Z
+      reason: PodCompleted
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T08:38:56Z
+      reason: PodCompleted
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      reason: PodCompleted
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T08:38:37Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://baad3197e4cddcd4edf3d2d228508a18a9fbe0c2b57fb4acbddd0b49a24c0225
+      image: openshift/origin-docker-builder:v3.11
+      imageID: docker-pullable://openshift/origin-docker-builder@sha256:e0dcd27c6e88ff3e277220cc26fea73c8479ecfe0402482c2327dd2a5c97f60d
+      lastState: {}
+      name: sti-build
+      ready: false
+      restartCount: 0
+      state:
+        terminated:
+          containerID: docker://baad3197e4cddcd4edf3d2d228508a18a9fbe0c2b57fb4acbddd0b49a24c0225
+          exitCode: 0
+          finishedAt: 2020-03-09T08:38:55Z
+          reason: Completed
+          startedAt: 2020-03-09T08:38:44Z
+    hostIP: 9.212.159.114
+    initContainerStatuses:
+    - containerID: docker://0a4e007c2284ad4369a6ff603015709fa57c20c93064eb4ab6f2109eb014dfdd
+      image: openshift/origin-docker-builder:v3.11
+      imageID: docker-pullable://openshift/origin-docker-builder@sha256:e0dcd27c6e88ff3e277220cc26fea73c8479ecfe0402482c2327dd2a5c97f60d
+      lastState: {}
+      name: git-clone
+      ready: true
+      restartCount: 0
+      state:
+        terminated:
+          containerID: docker://0a4e007c2284ad4369a6ff603015709fa57c20c93064eb4ab6f2109eb014dfdd
+          exitCode: 0
+          finishedAt: 2020-03-09T08:38:41Z
+          reason: Completed
+          startedAt: 2020-03-09T08:38:38Z
+    - containerID: docker://ae5ae28ceae726ca3d0530ef8dae07aa3e35f1a403dff15ebb02a6cc9eda22de
+      image: openshift/origin-docker-builder:v3.11
+      imageID: docker-pullable://openshift/origin-docker-builder@sha256:e0dcd27c6e88ff3e277220cc26fea73c8479ecfe0402482c2327dd2a5c97f60d
+      lastState: {}
+      name: manage-dockerfile
+      ready: true
+      restartCount: 0
+      state:
+        terminated:
+          containerID: docker://ae5ae28ceae726ca3d0530ef8dae07aa3e35f1a403dff15ebb02a6cc9eda22de
+          exitCode: 0
+          finishedAt: 2020-03-09T08:38:43Z
+          reason: Completed
+          startedAt: 2020-03-09T08:38:42Z
+    phase: Succeeded
+    podIP: 172.17.0.6
+    qosClass: BestEffort
+    startTime: 2020-03-09T08:38:37Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/deployment-config.latest-version: "3"
+      openshift.io/deployment-config.name: antonionodeapp
+      openshift.io/deployment.name: antonionodeapp-3
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-03-09T09:08:44Z
+    generateName: antonionodeapp-3-
+    labels:
+      app: antonionodeapp
+      deployment: antonionodeapp-3
+      deploymentconfig: antonionodeapp
+    name: antonionodeapp-3-bpzcv
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: antonionodeapp-3
+      uid: 922baeae-61e5-11ea-ae21-fa163e1a31ab
+    resourceVersion: "2450184"
+    selfLink: /api/v1/namespaces/antonio/pods/antonionodeapp-3-bpzcv
+    uid: 93d05b14-61e5-11ea-ae21-fa163e1a31ab
+  spec:
+    containers:
+    - env:
+      - name: DB
+        valueFrom:
+          configMapKeyRef:
+            key: host
+            name: config-mapp
+      - name: USER
+        valueFrom:
+          configMapKeyRef:
+            key: user
+            name: config-mapp
+      - name: PASS
+        valueFrom:
+          configMapKeyRef:
+            key: password
+            name: config-mapp
+      - name: DATAB
+        valueFrom:
+          configMapKeyRef:
+            key: database
+            name: config-mapp
+      image: 172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+      imagePullPolicy: Always
+      name: antonionodeapp
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources: {}
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1000180000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-b6pcv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-66lnj
+    nodeName: localhost
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000180000
+      seLinuxOptions:
+        level: s0:c13,c12
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    volumes:
+    - name: default-token-b6pcv
+      secret:
+        defaultMode: 420
+        secretName: default-token-b6pcv
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T09:08:44Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T10:54:54Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T09:08:44Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://5263280515dd9f67431ec7bb7fe14cb3144d49ece9c2ce62c0366f42878094ca
+      image: 172.30.1.1:5000/antonio/antonionodeapp:latest
+      imageID: docker-pullable://172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+      lastState:
+        terminated:
+          containerID: docker://a663d4e45a00cf2aceab803cb6a4bbb14e2c533a18515801510c3faebd19bdb5
+          exitCode: 0
+          finishedAt: 2020-03-09T10:54:52Z
+          reason: Completed
+          startedAt: 2020-03-09T09:08:45Z
+      name: antonionodeapp
+      ready: true
+      restartCount: 1
+      state:
+        running:
+          startedAt: 2020-03-09T10:54:53Z
+    hostIP: 9.212.159.114
+    phase: Running
+    podIP: 172.17.0.12
+    qosClass: BestEffort
+    startTime: 2020-03-09T09:08:44Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: antoniosql-nonfs
+      openshift.io/deployment.name: antoniosql-nonfs-1
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-03-09T11:21:00Z
+    generateName: antoniosql-nonfs-1-
+    labels:
+      app: antoniosql-nonfs
+      deployment: antoniosql-nonfs-1
+      deploymentconfig: antoniosql-nonfs
+    name: antoniosql-nonfs-1-l84fn
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: antoniosql-nonfs-1
+      uid: 0cef4bac-61f8-11ea-ae21-fa163e1a31ab
+    resourceVersion: "2456866"
+    selfLink: /api/v1/namespaces/antonio/pods/antoniosql-nonfs-1-l84fn
+    uid: 0df9c7dc-61f8-11ea-ae21-fa163e1a31ab
+  spec:
+    containers:
+    - env:
+      - name: MYSQL_ROOT_PASSWORD
+        value: test
+      image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      imagePullPolicy: IfNotPresent
+      name: antoniosql-nonfs
+      ports:
+      - containerPort: 3306
+        protocol: TCP
+      resources: {}
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1000180000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-b6pcv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-66lnj
+    nodeName: localhost
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000180000
+      seLinuxOptions:
+        level: s0:c13,c12
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    volumes:
+    - name: default-token-b6pcv
+      secret:
+        defaultMode: 420
+        secretName: default-token-b6pcv
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T11:21:00Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T11:21:01Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T11:21:00Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://21b62eae1fdd0f0980f8796f42c38837933ead973382cec7b47c8a68b1936bf8
+      image: sha256:8ef375298394132e15e73b900150b54a3340b3d3a80cf2c6adca0a25c904519e
+      imageID: docker-pullable://172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      lastState: {}
+      name: antoniosql-nonfs
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: 2020-03-09T11:21:01Z
+    hostIP: 9.212.159.114
+    phase: Running
+    podIP: 172.17.0.9
+    qosClass: BestEffort
+    startTime: 2020-03-09T11:21:00Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: mysql
+      openshift.io/deployment.name: mysql-1
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-03-09T11:10:26Z
+    generateName: mysql-1-
+    labels:
+      app: mysql
+      deployment: mysql-1
+      deploymentconfig: mysql
+    name: mysql-1-qjlnv
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: mysql-1
+      uid: 932673a7-61f6-11ea-ae21-fa163e1a31ab
+    resourceVersion: "2454188"
+    selfLink: /api/v1/namespaces/antonio/pods/mysql-1-qjlnv
+    uid: 943256e5-61f6-11ea-ae21-fa163e1a31ab
+  spec:
+    containers:
+    - env:
+      - name: MYSQL_ROOT_PASSWORD
+        value: test
+      image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      imagePullPolicy: IfNotPresent
+      name: mysql
+      ports:
+      - containerPort: 3306
+        protocol: TCP
+      resources: {}
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1000180000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-b6pcv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-66lnj
+    nodeName: localhost
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000180000
+      seLinuxOptions:
+        level: s0:c13,c12
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    volumes:
+    - name: default-token-b6pcv
+      secret:
+        defaultMode: 420
+        secretName: default-token-b6pcv
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T11:10:26Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T11:10:28Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-09T11:10:26Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://874c196737ba81efd41b414346b6ea00bb0cf2bf41d1eccf0b6713f9bdf66f58
+      image: sha256:8ef375298394132e15e73b900150b54a3340b3d3a80cf2c6adca0a25c904519e
+      imageID: docker-pullable://172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      lastState: {}
+      name: mysql
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: 2020-03-09T11:10:27Z
+    hostIP: 9.212.159.114
+    phase: Running
+    podIP: 172.17.0.13
+    qosClass: BestEffort
+    startTime: 2020-03-09T11:10:26Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/deployment-config.latest-version: "16"
+      openshift.io/deployment-config.name: safiebine
+      openshift.io/deployment.name: safiebine-16
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-03-17T11:49:33Z
+    generateName: safiebine-16-
+    labels:
+      app: safiebine
+      deployment: safiebine-16
+      deploymentconfig: safiebine
+    name: safiebine-16-n4mlb
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: safiebine-16
+      uid: 5d95de7e-6845-11ea-ae21-fa163e1a31ab
+    resourceVersion: "5369746"
+    selfLink: /api/v1/namespaces/antonio/pods/safiebine-16-n4mlb
+    uid: 5ebc513d-6845-11ea-ae21-fa163e1a31ab
+  spec:
+    containers:
+    - env:
+      - name: DB
+        valueFrom:
+          configMapKeyRef:
+            key: host
+            name: new-config-map
+      - name: USER
+        valueFrom:
+          configMapKeyRef:
+            key: user
+            name: new-config-map
+      - name: PASS
+        valueFrom:
+          configMapKeyRef:
+            key: password
+            name: new-config-map
+      - name: DATAB
+        valueFrom:
+          configMapKeyRef:
+            key: database
+            name: new-config-map
+      image: 172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+      imagePullPolicy: Always
+      name: safiebine
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources: {}
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1000180000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-b6pcv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-66lnj
+    nodeName: localhost
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000180000
+      seLinuxOptions:
+        level: s0:c13,c12
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    volumes:
+    - name: default-token-b6pcv
+      secret:
+        defaultMode: 420
+        secretName: default-token-b6pcv
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-17T11:49:33Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-17T19:51:42Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-03-17T11:49:33Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://1eb1de7e73aca71a26e5560148065b77f34d5f618c52b9f77574e666f7bad127
+      image: 172.30.1.1:5000/antonio/safiebine:latest
+      imageID: docker-pullable://172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+      lastState:
+        terminated:
+          containerID: docker://38899637433d60a7f5ec0808fc1df8e92f2ae56bdf5dfc16bd5fc594c586ebcf
+          exitCode: 1
+          finishedAt: 2020-03-17T19:51:40Z
+          reason: Error
+          startedAt: 2020-03-17T11:49:35Z
+      name: safiebine
+      ready: true
+      restartCount: 1
+      state:
+        running:
+          startedAt: 2020-03-17T19:51:42Z
+    hostIP: 9.212.159.114
+    phase: Running
+    podIP: 172.17.0.8
+    qosClass: BestEffort
+    startTime: 2020-03-17T11:49:33Z
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/original-replicas: "1"
+      openshift.io/deployer-pod.completed-at: 2020-03-09 12:02:07 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2020-03-09 12:02:03 +0000 UTC
+      openshift.io/deployer-pod.name: antonio-mysql-nfs-1-deploy
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: antonio-mysql-nfs
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: "1"
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"antonio-mysql-nfs","namespace":"antonio","selfLink":"/apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antonio-mysql-nfs","uid":"c9e9a1f6-61fd-11ea-889a-fa163e1a31ab","resourceVersion":"2467060","generation":2,"creationTimestamp":"2020-03-09T12:02:03Z","labels":{"app":"antonio-mysql-nfs"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["antonio-mysql-nfs"],"from":{"kind":"ImageStreamTag","namespace":"openshift","name":"mysql:5.6"},"lastTriggeredImage":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"antonio-mysql-nfs","deploymentconfig":"antonio-mysql-nfs"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"antonio-mysql-nfs","deploymentconfig":"antonio-mysql-nfs"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"containers":[{"name":"antonio-mysql-nfs","image":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f","ports":[{"containerPort":3306,"protocol":"TCP"}],"env":[{"name":"MYSQL_ROOT_PASSWORD","value":"test"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"IfNotPresent"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":1,"observedGeneration":0,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]}}}
+    creationTimestamp: 2020-03-09T12:02:03Z
+    generation: 3
+    labels:
+      app: antonio-mysql-nfs
+      openshift.io/deployment-config.name: antonio-mysql-nfs
+    name: antonio-mysql-nfs-1
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: antonio-mysql-nfs
+      uid: c9e9a1f6-61fd-11ea-889a-fa163e1a31ab
+    resourceVersion: "2469513"
+    selfLink: /api/v1/namespaces/antonio/replicationcontrollers/antonio-mysql-nfs-1
+    uid: ca33959b-61fd-11ea-ae21-fa163e1a31ab
+  spec:
+    replicas: 0
+    selector:
+      app: antonio-mysql-nfs
+      deployment: antonio-mysql-nfs-1
+      deploymentconfig: antonio-mysql-nfs
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "1"
+          openshift.io/deployment-config.name: antonio-mysql-nfs
+          openshift.io/deployment.name: antonio-mysql-nfs-1
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antonio-mysql-nfs
+          deployment: antonio-mysql-nfs-1
+          deploymentconfig: antonio-mysql-nfs
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: test
+          image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+          imagePullPolicy: IfNotPresent
+          name: antonio-mysql-nfs
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      openshift.io/deployer-pod.completed-at: 2020-03-09 12:11:54 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2020-03-09 12:11:46 +0000 UTC
+      openshift.io/deployer-pod.name: antonio-mysql-nfs-2-deploy
+      openshift.io/deployment-config.latest-version: "2"
+      openshift.io/deployment-config.name: antonio-mysql-nfs
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: ""
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"antonio-mysql-nfs","namespace":"antonio","selfLink":"/apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antonio-mysql-nfs","uid":"c9e9a1f6-61fd-11ea-889a-fa163e1a31ab","resourceVersion":"2469449","generation":3,"creationTimestamp":"2020-03-09T12:02:03Z","labels":{"app":"antonio-mysql-nfs"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["antonio-mysql-nfs"],"from":{"kind":"ImageStreamTag","namespace":"openshift","name":"mysql:5.6"},"lastTriggeredImage":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"antonio-mysql-nfs","deploymentconfig":"antonio-mysql-nfs"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"antonio-mysql-nfs","deploymentconfig":"antonio-mysql-nfs"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"volumes":[{"name":"pv-antonio-nfs","persistentVolumeClaim":{"claimName":"pvc-antonio-nfs"}}],"containers":[{"name":"antonio-mysql-nfs","image":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f","ports":[{"containerPort":3306,"protocol":"TCP"}],"env":[{"name":"MYSQL_ROOT_PASSWORD","value":"test"}],"resources":{},"volumeMounts":[{"name":"pv-antonio-nfs","mountPath":"/var/lib/mysql"}],"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"IfNotPresent"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":2,"observedGeneration":2,"replicas":1,"updatedReplicas":1,"availableReplicas":1,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]},"conditions":[{"type":"Available","status":"True","lastUpdateTime":"2020-03-09T12:02:07Z","lastTransitionTime":"2020-03-09T12:02:07Z","message":"Deployment config has minimum availability."},{"type":"Progressing","status":"True","lastUpdateTime":"2020-03-09T12:02:08Z","lastTransitionTime":"2020-03-09T12:02:08Z","reason":"NewReplicationControllerAvailable","message":"replication controller \"antonio-mysql-nfs-1\" successfully rolled out"}],"readyReplicas":1}}
+    creationTimestamp: 2020-03-09T12:11:46Z
+    generation: 2
+    labels:
+      app: antonio-mysql-nfs
+      openshift.io/deployment-config.name: antonio-mysql-nfs
+    name: antonio-mysql-nfs-2
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: antonio-mysql-nfs
+      uid: c9e9a1f6-61fd-11ea-889a-fa163e1a31ab
+    resourceVersion: "2469531"
+    selfLink: /api/v1/namespaces/antonio/replicationcontrollers/antonio-mysql-nfs-2
+    uid: 25762569-61ff-11ea-ae21-fa163e1a31ab
+  spec:
+    replicas: 1
+    selector:
+      app: antonio-mysql-nfs
+      deployment: antonio-mysql-nfs-2
+      deploymentconfig: antonio-mysql-nfs
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "2"
+          openshift.io/deployment-config.name: antonio-mysql-nfs
+          openshift.io/deployment.name: antonio-mysql-nfs-2
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antonio-mysql-nfs
+          deployment: antonio-mysql-nfs-2
+          deploymentconfig: antonio-mysql-nfs
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: test
+          image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+          imagePullPolicy: IfNotPresent
+          name: antonio-mysql-nfs
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: pv-antonio-nfs
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: pv-antonio-nfs
+          persistentVolumeClaim:
+            claimName: pvc-antonio-nfs
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/original-replicas: "1"
+      openshift.io/deployer-pod.completed-at: 2020-03-09 08:38:59 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2020-03-09 08:38:55 +0000 UTC
+      openshift.io/deployer-pod.name: antonionodeapp-1-deploy
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: antonionodeapp
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: "1"
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"antonionodeapp","namespace":"antonio","selfLink":"/apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antonionodeapp","uid":"5e7b6e10-61e1-11ea-889a-fa163e1a31ab","resourceVersion":"2417160","generation":2,"creationTimestamp":"2020-03-09T08:38:36Z","labels":{"app":"antonionodeapp"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["antonionodeapp"],"from":{"kind":"ImageStreamTag","namespace":"antonio","name":"antonionodeapp:latest"},"lastTriggeredImage":"172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"antonionodeapp","deploymentconfig":"antonionodeapp"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"antonionodeapp","deploymentconfig":"antonionodeapp"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"containers":[{"name":"antonionodeapp","image":"172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f","ports":[{"containerPort":8080,"protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":1,"observedGeneration":1,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]},"conditions":[{"type":"Available","status":"False","lastUpdateTime":"2020-03-09T08:38:37Z","lastTransitionTime":"2020-03-09T08:38:37Z","message":"Deployment config does not have minimum availability."}]}}
+    creationTimestamp: 2020-03-09T08:38:55Z
+    generation: 3
+    labels:
+      app: antonionodeapp
+      openshift.io/deployment-config.name: antonionodeapp
+    name: antonionodeapp-1
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: antonionodeapp
+      uid: 5e7b6e10-61e1-11ea-889a-fa163e1a31ab
+    resourceVersion: "2417402"
+    selfLink: /api/v1/namespaces/antonio/replicationcontrollers/antonionodeapp-1
+    uid: 69a5f435-61e1-11ea-ae21-fa163e1a31ab
+  spec:
+    replicas: 0
+    selector:
+      app: antonionodeapp
+      deployment: antonionodeapp-1
+      deploymentconfig: antonionodeapp
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "1"
+          openshift.io/deployment-config.name: antonionodeapp
+          openshift.io/deployment.name: antonionodeapp-1
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antonionodeapp
+          deployment: antonionodeapp-1
+          deploymentconfig: antonionodeapp
+      spec:
+        containers:
+        - image: 172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+          imagePullPolicy: Always
+          name: antonionodeapp
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/original-replicas: "1"
+      openshift.io/deployer-pod.completed-at: 2020-03-09 08:39:36 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2020-03-09 08:39:29 +0000 UTC
+      openshift.io/deployer-pod.name: antonionodeapp-2-deploy
+      openshift.io/deployment-config.latest-version: "2"
+      openshift.io/deployment-config.name: antonionodeapp
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: ""
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"antonionodeapp","namespace":"antonio","selfLink":"/apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antonionodeapp","uid":"5e7b6e10-61e1-11ea-889a-fa163e1a31ab","resourceVersion":"2417341","generation":3,"creationTimestamp":"2020-03-09T08:38:36Z","labels":{"app":"antonionodeapp"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["antonionodeapp"],"from":{"kind":"ImageStreamTag","namespace":"antonio","name":"antonionodeapp:latest"},"lastTriggeredImage":"172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"antonionodeapp","deploymentconfig":"antonionodeapp"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"antonionodeapp","deploymentconfig":"antonionodeapp"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"containers":[{"name":"antonionodeapp","image":"172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f","ports":[{"containerPort":8080,"protocol":"TCP"}],"env":[{"name":"DB","valueFrom":{"configMapKeyRef":{"name":"config-mapp","key":"host"}}},{"name":"USER","valueFrom":{"configMapKeyRef":{"name":"config-mapp","key":"user"}}},{"name":"PASS","valueFrom":{"configMapKeyRef":{"name":"config-mapp","key":"password"}}},{"name":"DATAB","valueFrom":{"configMapKeyRef":{"name":"config-mapp","key":"database"}}}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":2,"observedGeneration":2,"replicas":1,"updatedReplicas":1,"availableReplicas":1,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]},"conditions":[{"type":"Available","status":"True","lastUpdateTime":"2020-03-09T08:38:59Z","lastTransitionTime":"2020-03-09T08:38:59Z","message":"Deployment config has minimum availability."},{"type":"Progressing","status":"True","lastUpdateTime":"2020-03-09T08:39:00Z","lastTransitionTime":"2020-03-09T08:38:57Z","reason":"NewReplicationControllerAvailable","message":"replication controller \"antonionodeapp-1\" successfully rolled out"}],"readyReplicas":1}}
+    creationTimestamp: 2020-03-09T08:39:29Z
+    generation: 3
+    labels:
+      app: antonionodeapp
+      openshift.io/deployment-config.name: antonionodeapp
+    name: antonionodeapp-2
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: antonionodeapp
+      uid: 5e7b6e10-61e1-11ea-889a-fa163e1a31ab
+    resourceVersion: "2424517"
+    selfLink: /api/v1/namespaces/antonio/replicationcontrollers/antonionodeapp-2
+    uid: 7dabce3d-61e1-11ea-ae21-fa163e1a31ab
+  spec:
+    replicas: 0
+    selector:
+      app: antonionodeapp
+      deployment: antonionodeapp-2
+      deploymentconfig: antonionodeapp
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "2"
+          openshift.io/deployment-config.name: antonionodeapp
+          openshift.io/deployment.name: antonionodeapp-2
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antonionodeapp
+          deployment: antonionodeapp-2
+          deploymentconfig: antonionodeapp
+      spec:
+        containers:
+        - env:
+          - name: DB
+            valueFrom:
+              configMapKeyRef:
+                key: host
+                name: config-mapp
+          - name: USER
+            valueFrom:
+              configMapKeyRef:
+                key: user
+                name: config-mapp
+          - name: PASS
+            valueFrom:
+              configMapKeyRef:
+                key: password
+                name: config-mapp
+          - name: DATAB
+            valueFrom:
+              configMapKeyRef:
+                key: database
+                name: config-mapp
+          image: 172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+          imagePullPolicy: Always
+          name: antonionodeapp
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      openshift.io/deployer-pod.completed-at: 2020-03-09 09:08:49 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2020-03-09 09:08:41 +0000 UTC
+      openshift.io/deployer-pod.name: antonionodeapp-3-deploy
+      openshift.io/deployment-config.latest-version: "3"
+      openshift.io/deployment-config.name: antonionodeapp
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: ""
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"antonionodeapp","namespace":"antonio","selfLink":"/apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antonionodeapp","uid":"5e7b6e10-61e1-11ea-889a-fa163e1a31ab","resourceVersion":"2424453","generation":4,"creationTimestamp":"2020-03-09T08:38:36Z","labels":{"app":"antonionodeapp"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["antonionodeapp"],"from":{"kind":"ImageStreamTag","namespace":"antonio","name":"antonionodeapp:latest"},"lastTriggeredImage":"172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"antonionodeapp","deploymentconfig":"antonionodeapp"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"antonionodeapp","deploymentconfig":"antonionodeapp"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"containers":[{"name":"antonionodeapp","image":"172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f","ports":[{"containerPort":3000,"protocol":"TCP"}],"env":[{"name":"DB","valueFrom":{"configMapKeyRef":{"name":"config-mapp","key":"host"}}},{"name":"USER","valueFrom":{"configMapKeyRef":{"name":"config-mapp","key":"user"}}},{"name":"PASS","valueFrom":{"configMapKeyRef":{"name":"config-mapp","key":"password"}}},{"name":"DATAB","valueFrom":{"configMapKeyRef":{"name":"config-mapp","key":"database"}}}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":3,"observedGeneration":3,"replicas":1,"updatedReplicas":1,"availableReplicas":1,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]},"conditions":[{"type":"Available","status":"True","lastUpdateTime":"2020-03-09T08:38:59Z","lastTransitionTime":"2020-03-09T08:38:59Z","message":"Deployment config has minimum availability."},{"type":"Progressing","status":"True","lastUpdateTime":"2020-03-09T08:39:36Z","lastTransitionTime":"2020-03-09T08:39:33Z","reason":"NewReplicationControllerAvailable","message":"replication controller \"antonionodeapp-2\" successfully rolled out"}],"readyReplicas":1}}
+    creationTimestamp: 2020-03-09T09:08:41Z
+    generation: 2
+    labels:
+      app: antonionodeapp
+      openshift.io/deployment-config.name: antonionodeapp
+    name: antonionodeapp-3
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: antonionodeapp
+      uid: 5e7b6e10-61e1-11ea-889a-fa163e1a31ab
+    resourceVersion: "2450186"
+    selfLink: /api/v1/namespaces/antonio/replicationcontrollers/antonionodeapp-3
+    uid: 922baeae-61e5-11ea-ae21-fa163e1a31ab
+  spec:
+    replicas: 1
+    selector:
+      app: antonionodeapp
+      deployment: antonionodeapp-3
+      deploymentconfig: antonionodeapp
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "3"
+          openshift.io/deployment-config.name: antonionodeapp
+          openshift.io/deployment.name: antonionodeapp-3
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antonionodeapp
+          deployment: antonionodeapp-3
+          deploymentconfig: antonionodeapp
+      spec:
+        containers:
+        - env:
+          - name: DB
+            valueFrom:
+              configMapKeyRef:
+                key: host
+                name: config-mapp
+          - name: USER
+            valueFrom:
+              configMapKeyRef:
+                key: user
+                name: config-mapp
+          - name: PASS
+            valueFrom:
+              configMapKeyRef:
+                key: password
+                name: config-mapp
+          - name: DATAB
+            valueFrom:
+              configMapKeyRef:
+                key: database
+                name: config-mapp
+          image: 172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+          imagePullPolicy: Always
+          name: antonionodeapp
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      openshift.io/deployer-pod.completed-at: 2020-03-09 11:21:01 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2020-03-09 11:20:58 +0000 UTC
+      openshift.io/deployer-pod.name: antoniosql-nonfs-1-deploy
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: antoniosql-nonfs
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: "1"
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"antoniosql-nonfs","namespace":"antonio","selfLink":"/apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antoniosql-nonfs","uid":"0cad1627-61f8-11ea-889a-fa163e1a31ab","resourceVersion":"2456823","generation":2,"creationTimestamp":"2020-03-09T11:20:58Z","labels":{"app":"antoniosql-nonfs"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["antoniosql-nonfs"],"from":{"kind":"ImageStreamTag","namespace":"openshift","name":"mysql:5.6"},"lastTriggeredImage":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"antoniosql-nonfs","deploymentconfig":"antoniosql-nonfs"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"antoniosql-nonfs","deploymentconfig":"antoniosql-nonfs"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"containers":[{"name":"antoniosql-nonfs","image":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f","ports":[{"containerPort":3306,"protocol":"TCP"}],"env":[{"name":"MYSQL_ROOT_PASSWORD","value":"test"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"IfNotPresent"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":1,"observedGeneration":0,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]}}}
+    creationTimestamp: 2020-03-09T11:20:58Z
+    generation: 2
+    labels:
+      app: antoniosql-nonfs
+      openshift.io/deployment-config.name: antoniosql-nonfs
+    name: antoniosql-nonfs-1
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: antoniosql-nonfs
+      uid: 0cad1627-61f8-11ea-889a-fa163e1a31ab
+    resourceVersion: "2456875"
+    selfLink: /api/v1/namespaces/antonio/replicationcontrollers/antoniosql-nonfs-1
+    uid: 0cef4bac-61f8-11ea-ae21-fa163e1a31ab
+  spec:
+    replicas: 1
+    selector:
+      app: antoniosql-nonfs
+      deployment: antoniosql-nonfs-1
+      deploymentconfig: antoniosql-nonfs
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "1"
+          openshift.io/deployment-config.name: antoniosql-nonfs
+          openshift.io/deployment.name: antoniosql-nonfs-1
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antoniosql-nonfs
+          deployment: antoniosql-nonfs-1
+          deploymentconfig: antoniosql-nonfs
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: test
+          image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+          imagePullPolicy: IfNotPresent
+          name: antoniosql-nonfs
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      openshift.io/deployer-pod.completed-at: 2020-03-09 11:10:28 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2020-03-09 11:10:24 +0000 UTC
+      openshift.io/deployer-pod.name: mysql-1-deploy
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: mysql
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: "1"
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"mysql","namespace":"antonio","selfLink":"/apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/mysql","uid":"92d3c6db-61f6-11ea-889a-fa163e1a31ab","resourceVersion":"2454142","generation":2,"creationTimestamp":"2020-03-09T11:10:24Z","labels":{"app":"mysql"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["mysql"],"from":{"kind":"ImageStreamTag","namespace":"openshift","name":"mysql:5.6"},"lastTriggeredImage":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"mysql","deploymentconfig":"mysql"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"mysql","deploymentconfig":"mysql"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"containers":[{"name":"mysql","image":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f","ports":[{"containerPort":3306,"protocol":"TCP"}],"env":[{"name":"MYSQL_ROOT_PASSWORD","value":"test"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"IfNotPresent"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":1,"observedGeneration":0,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]}}}
+    creationTimestamp: 2020-03-09T11:10:24Z
+    generation: 2
+    labels:
+      app: mysql
+      openshift.io/deployment-config.name: mysql
+    name: mysql-1
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: mysql
+      uid: 92d3c6db-61f6-11ea-889a-fa163e1a31ab
+    resourceVersion: "2454198"
+    selfLink: /api/v1/namespaces/antonio/replicationcontrollers/mysql-1
+    uid: 932673a7-61f6-11ea-ae21-fa163e1a31ab
+  spec:
+    replicas: 1
+    selector:
+      app: mysql
+      deployment: mysql-1
+      deploymentconfig: mysql
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "1"
+          openshift.io/deployment-config.name: mysql
+          openshift.io/deployment.name: mysql-1
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: mysql
+          deployment: mysql-1
+          deploymentconfig: mysql
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: test
+          image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+          imagePullPolicy: IfNotPresent
+          name: mysql
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      openshift.io/deployer-pod.completed-at: 2020-03-17 11:49:36 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2020-03-17 11:49:32 +0000 UTC
+      openshift.io/deployer-pod.name: safiebine-16-deploy
+      openshift.io/deployment-config.latest-version: "16"
+      openshift.io/deployment-config.name: safiebine
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: "1"
+      openshift.io/deployment.status-reason: image change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"safiebine","namespace":"antonio","selfLink":"/apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/safiebine","uid":"2ad9e4d7-6200-11ea-889a-fa163e1a31ab","resourceVersion":"5204900","generation":17,"creationTimestamp":"2020-03-09T12:19:04Z","labels":{"app":"safiebine"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["safiebine"],"from":{"kind":"ImageStreamTag","namespace":"antonio","name":"safiebine:latest"},"lastTriggeredImage":"172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"safiebine","deploymentconfig":"safiebine"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"safiebine","deploymentconfig":"safiebine"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"containers":[{"name":"safiebine","image":"172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1","ports":[{"containerPort":3000,"protocol":"TCP"}],"env":[{"name":"DB","valueFrom":{"configMapKeyRef":{"name":"new-config-map","key":"host"}}},{"name":"USER","valueFrom":{"configMapKeyRef":{"name":"new-config-map","key":"user"}}},{"name":"PASS","valueFrom":{"configMapKeyRef":{"name":"new-config-map","key":"password"}}},{"name":"DATAB","valueFrom":{"configMapKeyRef":{"name":"new-config-map","key":"database"}}}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":16,"observedGeneration":17,"replicas":1,"updatedReplicas":1,"availableReplicas":1,"unavailableReplicas":0,"details":{"message":"image change","causes":[{"type":"ImageChange","imageTrigger":{"from":{"kind":"DockerImage","name":"172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1"}}}]},"conditions":[{"type":"Available","status":"True","lastUpdateTime":"2020-03-16T10:21:33Z","lastTransitionTime":"2020-03-16T10:21:33Z","message":"Deployment config has minimum availability."},{"type":"Progressing","status":"True","lastUpdateTime":"2020-03-17T08:31:59Z","lastTransitionTime":"2020-03-17T08:31:56Z","reason":"NewReplicationControllerAvailable","message":"replication controller \"safiebine-16\" successfully rolled out"}],"readyReplicas":1}}
+    creationTimestamp: 2020-03-17T11:49:32Z
+    generation: 2
+    labels:
+      app: safiebine
+      openshift.io/deployment-config.name: safiebine
+    name: safiebine-16
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: safiebine
+      uid: 2ad9e4d7-6200-11ea-889a-fa163e1a31ab
+    resourceVersion: "5369747"
+    selfLink: /api/v1/namespaces/antonio/replicationcontrollers/safiebine-16
+    uid: 5d95de7e-6845-11ea-ae21-fa163e1a31ab
+  spec:
+    replicas: 1
+    selector:
+      app: safiebine
+      deployment: safiebine-16
+      deploymentconfig: safiebine
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "16"
+          openshift.io/deployment-config.name: safiebine
+          openshift.io/deployment.name: safiebine-16
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: safiebine
+          deployment: safiebine-16
+          deploymentconfig: safiebine
+      spec:
+        containers:
+        - env:
+          - name: DB
+            valueFrom:
+              configMapKeyRef:
+                key: host
+                name: new-config-map
+          - name: USER
+            valueFrom:
+              configMapKeyRef:
+                key: user
+                name: new-config-map
+          - name: PASS
+            valueFrom:
+              configMapKeyRef:
+                key: password
+                name: new-config-map
+          - name: DATAB
+            valueFrom:
+              configMapKeyRef:
+                key: database
+                name: new-config-map
+          image: 172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+          imagePullPolicy: Always
+          name: safiebine
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T12:02:03Z
+    labels:
+      app: antonio-mysql-nfs
+    name: antonio-mysql-nfs
+    namespace: antonio
+    resourceVersion: "2467053"
+    selfLink: /api/v1/namespaces/antonio/services/antonio-mysql-nfs
+    uid: c9eb7fb3-61fd-11ea-ae21-fa163e1a31ab
+  spec:
+    clusterIP: 172.30.51.140
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      app: antonio-mysql-nfs
+      deploymentconfig: antonio-mysql-nfs
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T08:38:36Z
+    labels:
+      app: antonionodeapp
+    name: antonionodeapp
+    namespace: antonio
+    resourceVersion: "2417216"
+    selfLink: /api/v1/namespaces/antonio/services/antonionodeapp
+    uid: 5e7ec31a-61e1-11ea-ae21-fa163e1a31ab
+  spec:
+    clusterIP: 172.30.126.123
+    ports:
+    - name: 3000-tcp
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: antonionodeapp
+      deploymentconfig: antonionodeapp
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T11:20:58Z
+    labels:
+      app: antoniosql-nonfs
+    name: antoniosql-nonfs
+    namespace: antonio
+    resourceVersion: "2456817"
+    selfLink: /api/v1/namespaces/antonio/services/antoniosql-nonfs
+    uid: 0caecc88-61f8-11ea-ae21-fa163e1a31ab
+  spec:
+    clusterIP: 172.30.11.45
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      app: antoniosql-nonfs
+      deploymentconfig: antoniosql-nonfs
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T11:10:24Z
+    labels:
+      app: mysql
+    name: mysql
+    namespace: antonio
+    resourceVersion: "2454137"
+    selfLink: /api/v1/namespaces/antonio/services/mysql
+    uid: 92d5a30e-61f6-11ea-ae21-fa163e1a31ab
+  spec:
+    clusterIP: 172.30.182.91
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      app: mysql
+      deploymentconfig: mysql
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T12:19:04Z
+    labels:
+      app: safiebine
+    name: safiebine
+    namespace: antonio
+    resourceVersion: "2471387"
+    selfLink: /api/v1/namespaces/antonio/services/safiebine
+    uid: 2adbc62b-6200-11ea-ae21-fa163e1a31ab
+  spec:
+    clusterIP: 172.30.228.5
+    ports:
+    - name: 3000-tcp
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: safiebine
+      deploymentconfig: safiebine
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T12:02:03Z
+    generation: 3
+    labels:
+      app: antonio-mysql-nfs
+    name: antonio-mysql-nfs
+    namespace: antonio
+    resourceVersion: "2469533"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antonio-mysql-nfs
+    uid: c9e9a1f6-61fd-11ea-889a-fa163e1a31ab
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: antonio-mysql-nfs
+      deploymentconfig: antonio-mysql-nfs
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antonio-mysql-nfs
+          deploymentconfig: antonio-mysql-nfs
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: test
+          image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+          imagePullPolicy: IfNotPresent
+          name: antonio-mysql-nfs
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: pv-antonio-nfs
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: pv-antonio-nfs
+          persistentVolumeClaim:
+            claimName: pvc-antonio-nfs
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - antonio-mysql-nfs
+        from:
+          kind: ImageStreamTag
+          name: mysql:5.6
+          namespace: openshift
+        lastTriggeredImage: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      type: ImageChange
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2020-03-09T12:02:07Z
+      lastUpdateTime: 2020-03-09T12:02:07Z
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2020-03-09T12:11:52Z
+      lastUpdateTime: 2020-03-09T12:11:55Z
+      message: replication controller "antonio-mysql-nfs-2" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    details:
+      causes:
+      - type: ConfigChange
+      message: config change
+    latestVersion: 2
+    observedGeneration: 3
+    readyReplicas: 1
+    replicas: 1
+    unavailableReplicas: 0
+    updatedReplicas: 1
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T08:38:36Z
+    generation: 4
+    labels:
+      app: antonionodeapp
+    name: antonionodeapp
+    namespace: antonio
+    resourceVersion: "2450187"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antonionodeapp
+    uid: 5e7b6e10-61e1-11ea-889a-fa163e1a31ab
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: antonionodeapp
+      deploymentconfig: antonionodeapp
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antonionodeapp
+          deploymentconfig: antonionodeapp
+      spec:
+        containers:
+        - env:
+          - name: DB
+            valueFrom:
+              configMapKeyRef:
+                key: host
+                name: config-mapp
+          - name: USER
+            valueFrom:
+              configMapKeyRef:
+                key: user
+                name: config-mapp
+          - name: PASS
+            valueFrom:
+              configMapKeyRef:
+                key: password
+                name: config-mapp
+          - name: DATAB
+            valueFrom:
+              configMapKeyRef:
+                key: database
+                name: config-mapp
+          image: 172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+          imagePullPolicy: Always
+          name: antonionodeapp
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - antonionodeapp
+        from:
+          kind: ImageStreamTag
+          name: antonionodeapp:latest
+          namespace: antonio
+        lastTriggeredImage: 172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+      type: ImageChange
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2020-03-09T09:08:47Z
+      lastUpdateTime: 2020-03-09T09:08:49Z
+      message: replication controller "antonionodeapp-3" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2020-03-09T10:54:54Z
+      lastUpdateTime: 2020-03-09T10:54:54Z
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    details:
+      causes:
+      - type: ConfigChange
+      message: config change
+    latestVersion: 3
+    observedGeneration: 4
+    readyReplicas: 1
+    replicas: 1
+    unavailableReplicas: 0
+    updatedReplicas: 1
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T11:20:58Z
+    generation: 2
+    labels:
+      app: antoniosql-nonfs
+    name: antoniosql-nonfs
+    namespace: antonio
+    resourceVersion: "2456877"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antoniosql-nonfs
+    uid: 0cad1627-61f8-11ea-889a-fa163e1a31ab
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: antoniosql-nonfs
+      deploymentconfig: antoniosql-nonfs
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antoniosql-nonfs
+          deploymentconfig: antoniosql-nonfs
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: test
+          image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+          imagePullPolicy: IfNotPresent
+          name: antoniosql-nonfs
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - antoniosql-nonfs
+        from:
+          kind: ImageStreamTag
+          name: mysql:5.6
+          namespace: openshift
+        lastTriggeredImage: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      type: ImageChange
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2020-03-09T11:21:01Z
+      lastUpdateTime: 2020-03-09T11:21:01Z
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2020-03-09T11:21:02Z
+      lastUpdateTime: 2020-03-09T11:21:02Z
+      message: replication controller "antoniosql-nonfs-1" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    details:
+      causes:
+      - type: ConfigChange
+      message: config change
+    latestVersion: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    unavailableReplicas: 0
+    updatedReplicas: 1
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T11:10:24Z
+    generation: 2
+    labels:
+      app: mysql
+    name: mysql
+    namespace: antonio
+    resourceVersion: "2454200"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/mysql
+    uid: 92d3c6db-61f6-11ea-889a-fa163e1a31ab
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: mysql
+      deploymentconfig: mysql
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: mysql
+          deploymentconfig: mysql
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: test
+          image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+          imagePullPolicy: IfNotPresent
+          name: mysql
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - mysql
+        from:
+          kind: ImageStreamTag
+          name: mysql:5.6
+          namespace: openshift
+        lastTriggeredImage: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      type: ImageChange
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2020-03-09T11:10:28Z
+      lastUpdateTime: 2020-03-09T11:10:28Z
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2020-03-09T11:10:26Z
+      lastUpdateTime: 2020-03-09T11:10:29Z
+      message: replication controller "mysql-1" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    details:
+      causes:
+      - type: ConfigChange
+      message: config change
+    latestVersion: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    unavailableReplicas: 0
+    updatedReplicas: 1
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T12:19:04Z
+    generation: 17
+    labels:
+      app: safiebine
+    name: safiebine
+    namespace: antonio
+    resourceVersion: "5369749"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/safiebine
+    uid: 2ad9e4d7-6200-11ea-889a-fa163e1a31ab
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: safiebine
+      deploymentconfig: safiebine
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: safiebine
+          deploymentconfig: safiebine
+      spec:
+        containers:
+        - env:
+          - name: DB
+            valueFrom:
+              configMapKeyRef:
+                key: host
+                name: new-config-map
+          - name: USER
+            valueFrom:
+              configMapKeyRef:
+                key: user
+                name: new-config-map
+          - name: PASS
+            valueFrom:
+              configMapKeyRef:
+                key: password
+                name: new-config-map
+          - name: DATAB
+            valueFrom:
+              configMapKeyRef:
+                key: database
+                name: new-config-map
+          image: 172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+          imagePullPolicy: Always
+          name: safiebine
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - safiebine
+        from:
+          kind: ImageStreamTag
+          name: safiebine:latest
+          namespace: antonio
+        lastTriggeredImage: 172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+      type: ImageChange
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2020-03-17T11:49:37Z
+      lastUpdateTime: 2020-03-17T11:49:37Z
+      message: replication controller "safiebine-16" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2020-03-17T19:51:42Z
+      lastUpdateTime: 2020-03-17T19:51:42Z
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    details:
+      causes:
+      - imageTrigger:
+          from:
+            kind: DockerImage
+            name: 172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+        type: ImageChange
+      message: image change
+    latestVersion: 16
+    observedGeneration: 17
+    readyReplicas: 1
+    replicas: 1
+    unavailableReplicas: 0
+    updatedReplicas: 1
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T08:38:36Z
+    labels:
+      app: antonionodeapp
+    name: antonionodeapp
+    namespace: antonio
+    resourceVersion: "2417056"
+    selfLink: /apis/build.openshift.io/v1/namespaces/antonio/buildconfigs/antonionodeapp
+    uid: 5e786d90-61e1-11ea-889a-fa163e1a31ab
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: antonionodeapp:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      contextDir: final_project/app
+      git:
+        uri: https://github.com/antonioalexandru/DO288-apps/
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: nodejs:10
+          namespace: openshift
+      type: Source
+    successfulBuildsHistoryLimit: 5
+    triggers:
+    - github:
+        secret: FUZKMLwxvbQTLIOdrzup
+      type: GitHub
+    - generic:
+        secret: 0T_nl1IT7SmVjUN_4vPW
+      type: Generic
+    - type: ConfigChange
+    - imageChange:
+        lastTriggeredImageID: 172.30.1.1:5000/openshift/nodejs@sha256:3cc041334eef8d5853078a0190e46a2998a70ad98320db512968f1de0561705e
+      type: ImageChange
+  status:
+    lastVersion: 1
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T12:19:04Z
+    labels:
+      app: safiebine
+    name: safiebine
+    namespace: antonio
+    resourceVersion: "5204660"
+    selfLink: /apis/build.openshift.io/v1/namespaces/antonio/buildconfigs/safiebine
+    uid: 2ad79ac3-6200-11ea-889a-fa163e1a31ab
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: safiebine:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      contextDir: final_project/app
+      git:
+        uri: https://github.com/antonioalexandru/DO288-apps
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: nodejs:10
+          namespace: openshift
+      type: Source
+    successfulBuildsHistoryLimit: 5
+    triggers:
+    - github:
+        secret: uG337tHAYJTUeMunxpXw
+      type: GitHub
+    - generic:
+        secret: PY-YNE717fiVInanz8RM
+      type: Generic
+    - type: ConfigChange
+    - imageChange:
+        lastTriggeredImageID: 172.30.1.1:5000/openshift/nodejs@sha256:3cc041334eef8d5853078a0190e46a2998a70ad98320db512968f1de0561705e
+      type: ImageChange
+  status:
+    lastVersion: 12
+- apiVersion: build.openshift.io/v1
+  kind: Build
+  metadata:
+    annotations:
+      openshift.io/build-config.name: antonionodeapp
+      openshift.io/build.number: "1"
+      openshift.io/build.pod-name: antonionodeapp-1-build
+    creationTimestamp: 2020-03-09T08:38:36Z
+    labels:
+      app: antonionodeapp
+      buildconfig: antonionodeapp
+      openshift.io/build-config.name: antonionodeapp
+      openshift.io/build.start-policy: Serial
+    name: antonionodeapp-1
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: build.openshift.io/v1
+      controller: true
+      kind: BuildConfig
+      name: antonionodeapp
+      uid: 5e786d90-61e1-11ea-889a-fa163e1a31ab
+    resourceVersion: "2417175"
+    selfLink: /apis/build.openshift.io/v1/namespaces/antonio/builds/antonionodeapp-1
+    uid: 5e8b7485-61e1-11ea-889a-fa163e1a31ab
+  spec:
+    nodeSelector: null
+    output:
+      pushSecret:
+        name: builder-dockercfg-d96gh
+      to:
+        kind: ImageStreamTag
+        name: antonionodeapp:latest
+    postCommit: {}
+    resources: {}
+    revision:
+      git:
+        author:
+          email: 60381460+antonioalexandru@users.noreply.github.com
+          name: antonioalexandru
+        commit: 33bbe23df6a22d90ed22a873eb96d5f64476c7ba
+        committer:
+          email: noreply@github.com
+          name: GitHub
+        message: Update server.js
+      type: Git
+    serviceAccount: builder
+    source:
+      contextDir: final_project/app
+      git:
+        uri: https://github.com/antonioalexandru/DO288-apps/
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: DockerImage
+          name: 172.30.1.1:5000/openshift/nodejs@sha256:3cc041334eef8d5853078a0190e46a2998a70ad98320db512968f1de0561705e
+        pullSecret:
+          name: builder-dockercfg-d96gh
+      type: Source
+    triggeredBy:
+    - message: Build configuration change
+  status:
+    completionTimestamp: 2020-03-09T08:38:56Z
+    config:
+      kind: BuildConfig
+      name: antonionodeapp
+      namespace: antonio
+    duration: 19000000000
+    output:
+      to:
+        imageDigest: sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+    outputDockerImageReference: 172.30.1.1:5000/antonio/antonionodeapp:latest
+    phase: Complete
+    stages:
+    - durationMilliseconds: 1950
+      name: FetchInputs
+      startTime: 2020-03-09T08:38:39Z
+      steps:
+      - durationMilliseconds: 1950
+        name: FetchGitSource
+        startTime: 2020-03-09T08:38:39Z
+    - durationMilliseconds: 542
+      name: CommitContainer
+      startTime: 2020-03-09T08:38:54Z
+      steps:
+      - durationMilliseconds: 542
+        name: CommitContainer
+        startTime: 2020-03-09T08:38:54Z
+    - durationMilliseconds: 10185
+      name: Assemble
+      startTime: 2020-03-09T08:38:44Z
+      steps:
+      - durationMilliseconds: 10185
+        name: AssembleBuildScripts
+        startTime: 2020-03-09T08:38:44Z
+    - durationMilliseconds: 667
+      name: PushImage
+      startTime: 2020-03-09T08:38:54Z
+      steps:
+      - durationMilliseconds: 667
+        name: PushImage
+        startTime: 2020-03-09T08:38:54Z
+    startTimestamp: 2020-03-09T08:38:37Z
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/image.dockerRepositoryCheck: 2020-03-09T12:02:03Z
+    creationTimestamp: 2020-03-09T12:02:03Z
+    generation: 2
+    name: antonio-mysql-nfs
+    namespace: antonio
+    resourceVersion: "2467055"
+    selfLink: /apis/image.openshift.io/v1/namespaces/antonio/imagestreams/antonio-mysql-nfs
+    uid: c9e7624d-61fd-11ea-889a-fa163e1a31ab
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: 172.30.1.1:5000/openshift/mysql:5.6
+      generation: 2
+      importPolicy: {}
+      name: "5.6"
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: 172.30.1.1:5000/antonio/antonio-mysql-nfs
+    tags:
+    - conditions:
+      - generation: 2
+        lastTransitionTime: 2020-03-09T12:02:03Z
+        message: 'Internal error occurred: Get https://172.30.1.1:5000/v2/: http:
+          server gave HTTP response to HTTPS client'
+        reason: InternalError
+        status: "False"
+        type: ImportSuccess
+      items: null
+      tag: "5.6"
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T08:38:36Z
+    generation: 1
+    labels:
+      app: antonionodeapp
+    name: antonionodeapp
+    namespace: antonio
+    resourceVersion: "2417156"
+    selfLink: /apis/image.openshift.io/v1/namespaces/antonio/imagestreams/antonionodeapp
+    uid: 5e756672-61e1-11ea-889a-fa163e1a31ab
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: 172.30.1.1:5000/antonio/antonionodeapp
+    tags:
+    - items:
+      - created: 2020-03-09T08:38:55Z
+        dockerImageReference: 172.30.1.1:5000/antonio/antonionodeapp@sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+        generation: 1
+        image: sha256:efd469a593eabb21bad07a6a144bdd7434bd8436556537c0d23994099afac94f
+      tag: latest
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/image.dockerRepositoryCheck: 2020-03-09T11:20:58Z
+    creationTimestamp: 2020-03-09T11:20:58Z
+    generation: 2
+    name: antoniosql-nonfs
+    namespace: antonio
+    resourceVersion: "2456822"
+    selfLink: /apis/image.openshift.io/v1/namespaces/antonio/imagestreams/antoniosql-nonfs
+    uid: 0cab026c-61f8-11ea-889a-fa163e1a31ab
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: 172.30.1.1:5000/openshift/mysql:5.6
+      generation: 2
+      importPolicy: {}
+      name: "5.6"
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: 172.30.1.1:5000/antonio/antoniosql-nonfs
+    tags:
+    - conditions:
+      - generation: 2
+        lastTransitionTime: 2020-03-09T11:20:58Z
+        message: 'Internal error occurred: Get https://172.30.1.1:5000/v2/: http:
+          server gave HTTP response to HTTPS client'
+        reason: InternalError
+        status: "False"
+        type: ImportSuccess
+      items: null
+      tag: "5.6"
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/image.dockerRepositoryCheck: 2020-03-09T11:00:20Z
+    creationTimestamp: 2020-03-09T11:00:20Z
+    generation: 2
+    name: mysql
+    namespace: antonio
+    resourceVersion: "2451510"
+    selfLink: /apis/image.openshift.io/v1/namespaces/antonio/imagestreams/mysql
+    uid: 2af519d1-61f5-11ea-889a-fa163e1a31ab
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: 172.30.1.1:5000/openshift/mysql:5.6
+      generation: 2
+      importPolicy: {}
+      name: "5.6"
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: 172.30.1.1:5000/antonio/mysql
+    tags:
+    - conditions:
+      - generation: 2
+        lastTransitionTime: 2020-03-09T11:00:20Z
+        message: 'Internal error occurred: Get https://172.30.1.1:5000/v2/: http:
+          server gave HTTP response to HTTPS client'
+        reason: InternalError
+        status: "False"
+        type: ImportSuccess
+      items: null
+      tag: "5.6"
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-03-09T12:19:04Z
+    generation: 1
+    labels:
+      app: safiebine
+    name: safiebine
+    namespace: antonio
+    resourceVersion: "5204809"
+    selfLink: /apis/image.openshift.io/v1/namespaces/antonio/imagestreams/safiebine
+    uid: 2ad468dc-6200-11ea-889a-fa163e1a31ab
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: 172.30.1.1:5000/antonio/safiebine
+    tags:
+    - items:
+      - created: 2020-03-17T08:31:51Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+        generation: 1
+        image: sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+      - created: 2020-03-17T08:05:30Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:83bc4a917d322dd623c7614069674b8f1a32f0c7948fcecf39fd468bff847d82
+        generation: 1
+        image: sha256:83bc4a917d322dd623c7614069674b8f1a32f0c7948fcecf39fd468bff847d82
+      - created: 2020-03-17T07:59:27Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:ab4a9c16fcecb78e8444a88f17748f0c59d7605d2f7512a1269c3c28d973320d
+        generation: 1
+        image: sha256:ab4a9c16fcecb78e8444a88f17748f0c59d7605d2f7512a1269c3c28d973320d
+      - created: 2020-03-17T07:30:43Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:609e5000f92ffff8eb8083803a10b5fb001d19394dbac02f02039c0edaee42b0
+        generation: 1
+        image: sha256:609e5000f92ffff8eb8083803a10b5fb001d19394dbac02f02039c0edaee42b0
+      - created: 2020-03-16T10:21:27Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:c68e467b34ce83cbe627c8708eedf772b8811ebebe45136229faafa3dfe7f199
+        generation: 1
+        image: sha256:c68e467b34ce83cbe627c8708eedf772b8811ebebe45136229faafa3dfe7f199
+      - created: 2020-03-16T10:07:18Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:a2fc80442a246eb26bf607bd07f33adad5e38d44a8786dee1de5814ff2f233ae
+        generation: 1
+        image: sha256:a2fc80442a246eb26bf607bd07f33adad5e38d44a8786dee1de5814ff2f233ae
+      - created: 2020-03-16T10:04:09Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:cd4e7b935af32524b47b9358abf21bf19f0d4dd081a36c91044d704d22d09714
+        generation: 1
+        image: sha256:cd4e7b935af32524b47b9358abf21bf19f0d4dd081a36c91044d704d22d09714
+      - created: 2020-03-16T09:40:07Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:48bda81967b9357dc01641d1b7a2e73239a366ee51765e5df9c81917a2ea7d70
+        generation: 1
+        image: sha256:48bda81967b9357dc01641d1b7a2e73239a366ee51765e5df9c81917a2ea7d70
+      - created: 2020-03-16T09:37:40Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:798fb99fe3a8605ad101b98e5517a08f8b40959c19ec9d504d11896a3633dd3b
+        generation: 1
+        image: sha256:798fb99fe3a8605ad101b98e5517a08f8b40959c19ec9d504d11896a3633dd3b
+      - created: 2020-03-16T09:36:14Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:c4eac82dda0052c1333875cc3bc404a5b588aff0d7700ed7afca0768ea4cd2ad
+        generation: 1
+        image: sha256:c4eac82dda0052c1333875cc3bc404a5b588aff0d7700ed7afca0768ea4cd2ad
+      - created: 2020-03-16T09:34:04Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:60b904cf4c82b93dc807642979f7bc30a264f0b6189d7f1df12aeaf7a3fcac56
+        generation: 1
+        image: sha256:60b904cf4c82b93dc807642979f7bc30a264f0b6189d7f1df12aeaf7a3fcac56
+      - created: 2020-03-09T12:19:27Z
+        dockerImageReference: 172.30.1.1:5000/antonio/safiebine@sha256:7cf2a9d19d50f9beb9e453e2c2a2d74934a85b6714495b4254ddf44ba154d548
+        generation: 1
+        image: sha256:7cf2a9d19d50f9beb9e453e2c2a2d74934a85b6714495b4254ddf44ba154d548
+      tag: latest
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: 2020-03-10T07:58:50Z
+    labels:
+      app: antonionodeapp
+    name: antonionodeapp
+    namespace: antonio
+    resourceVersion: "2756597"
+    selfLink: /apis/route.openshift.io/v1/namespaces/antonio/routes/antonionodeapp
+    uid: fa6eb36e-62a4-11ea-889a-fa163e1a31ab
+  spec:
+    host: antonionodeapp-antonio.9.212.159.114.nip.io
+    port:
+      targetPort: 3000-tcp
+    to:
+      kind: Service
+      name: antonionodeapp
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: 2020-03-10T07:58:50Z
+        status: "True"
+        type: Admitted
+      host: antonionodeapp-antonio.9.212.159.114.nip.io
+      routerName: router
+      wildcardPolicy: None
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: 2020-03-09T07:56:29Z
+    name: antoniosql-nonfs
+    namespace: antonio
+    resourceVersion: "2406538"
+    selfLink: /apis/route.openshift.io/v1/namespaces/antonio/routes/antoniosql-nonfs
+    uid: 7c025cac-61db-11ea-889a-fa163e1a31ab
+  spec:
+    host: antoniosql-nonfs-antonio.9.212.159.114.nip.io
+    port:
+      targetPort: 3306
+    to:
+      kind: Service
+      name: antoniosql-nonfs
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: 2020-03-09T07:56:29Z
+        status: "True"
+        type: Admitted
+      host: antoniosql-nonfs-antonio.9.212.159.114.nip.io
+      routerName: router
+      wildcardPolicy: None
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: 2020-03-17T12:49:50Z
+    labels:
+      app: safiebine
+    name: safiebine
+    namespace: antonio
+    resourceVersion: "5268470"
+    selfLink: /apis/route.openshift.io/v1/namespaces/antonio/routes/safiebine
+    uid: ca247979-684d-11ea-889a-fa163e1a31ab
+  spec:
+    host: safiebine-antonio.9.212.159.114.nip.io
+    port:
+      targetPort: 3000-tcp
+    to:
+      kind: Service
+      name: safiebine
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: 2020-03-17T12:53:53Z
+        status: "True"
+        type: Admitted
+      host: safiebine-antonio.9.212.159.114.nip.io
+      routerName: router
+      wildcardPolicy: None
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
