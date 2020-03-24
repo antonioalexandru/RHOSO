@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: antoniosql-nonfs
+  labels:
+    app: antoniosql-nonfs
+  namespace: antonio
+spec:
+  replicas: 1
+  selector:
+    name: antoniosql-nonfs
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        name: antoniosql-nonfs
+    spec:
+      containers:
+        - name: antoniosql-nonfs
+          image: mysql:5.6
+          volumeMounts:
+          - mountPath: /var/lib/mysql/data
+            name: pv-antonio-nonfs
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: test
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+      volumes:
+        - name: pv-antonio-nonfs
+          persistentVolumeClaim:
+            claimName: pvc-antonio-nonfs
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - antoniosql-nonfs
+      from:
+        kind: ImageStreamTag
+        name: mysql:5.6
+        namespace: openshift
+      lastTriggeredImage: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+    type: ImageChange

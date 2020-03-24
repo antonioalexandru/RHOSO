@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: antoniosql-nonfs
+  name: antoniosql-nonfs
+  namespace: antonio
+spec:
+  clusterIP: 172.30.190.135
+  ports:
+  - name: 3306-tcp
+    port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    app: antoniosql-nonfs
+    deploymentconfig: antoniosql-nonfs
+  type: ClusterIP

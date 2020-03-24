@@ -1,0 +1,116 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: 2020-03-09T12:19:04Z
+  generation: 17
+  labels:
+    app: safiebine
+  name: safiebine
+  namespace: antonio
+  resourceVersion: "5252874"
+  selfLink: /apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/safiebine
+  uid: 2ad9e4d7-6200-11ea-889a-fa163e1a31ab
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: safiebine
+    deploymentconfig: safiebine
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        app: safiebine
+        deploymentconfig: safiebine
+    spec:
+      containers:
+      - env:
+        - name: DB
+          valueFrom:
+            configMapKeyRef:
+              key: host
+              name: new-config-map
+        - name: USER
+          valueFrom:
+            configMapKeyRef:
+              key: user
+              name: new-config-map
+        - name: PASS
+          valueFrom:
+            configMapKeyRef:
+              key: password
+              name: new-config-map
+        - name: DATAB
+          valueFrom:
+            configMapKeyRef:
+              key: database
+              name: new-config-map
+        image: 172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+        imagePullPolicy: Always
+        name: safiebine
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - safiebine
+      from:
+        kind: ImageStreamTag
+        name: safiebine:latest
+        namespace: antonio
+      lastTriggeredImage: 172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+    type: ImageChange
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: 2020-03-17T11:49:36Z
+    lastUpdateTime: 2020-03-17T11:49:36Z
+    message: Deployment config has minimum availability.
+    status: "True"
+    type: Available
+  - lastTransitionTime: 2020-03-17T11:49:37Z
+    lastUpdateTime: 2020-03-17T11:49:37Z
+    message: replication controller "safiebine-16" successfully rolled out
+    reason: NewReplicationControllerAvailable
+    status: "True"
+    type: Progressing
+  details:
+    causes:
+    - imageTrigger:
+        from:
+          kind: DockerImage
+          name: 172.30.1.1:5000/antonio/safiebine@sha256:b6b944a4009965b079ba9a30cd78388c9fee40165a9dba3aaeac90cd4f659af1
+      type: ImageChange
+    message: image change
+  latestVersion: 16
+  observedGeneration: 17
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1

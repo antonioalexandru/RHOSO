@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-mapp
+  namespace: antonio
+data:
+  HOST: antoniosql-nfs-antonio.9.212.159.114.nip.io:3306
+  USER: root
+  PASS: ceva
+  DATAB: test
+  root.password: test

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: antonionode
+  namespace: antonio
+  labels:
+    app: antonionode
+spec:
+  selector:
+    app: antonionode
+  type: ClusterIP
+  clusterIP: 172.30.136.123
+  ports:
+  - name: 3000-tcp
+    port: 3000
+    protocol: TCP
+    targetPort: 3000

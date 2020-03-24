@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  database: test
+  host: antoniosql-nonfs
+  password: test
+  user: root
+kind: ConfigMap
+metadata:
+  name: config-mapp-nonfs
+  namespace: antonio

@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  database: test
+  host: antonio-mysql-nfs
+  password: test
+  user: root
+kind: ConfigMap
+metadata:
+  name: new-config-map
+  namespace: antonio2

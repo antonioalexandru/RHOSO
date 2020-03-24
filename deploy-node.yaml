@@ -1,0 +1,81 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: antonionode
+  name: antonionode
+  namespace: antonio
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: antonionode
+    deploymentconfig: antonionode
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: antonionode
+        deploymentconfig: antonionode
+    spec:
+      containers:
+        - env:
+          - name: process.env.DB
+            valueFrom:
+              configMapKeyRef:
+                name: config-mapp
+                key: HOST
+          - name: process.env.USER
+            valueFrom:
+              configMapKeyRef:
+                name: config-mapp
+                key: USER
+          - name: process.env.PASS
+            valueFrom:
+              configMapKeyRef:
+                name: config-mapp
+                key: PASS
+          - name: process.env.DATAB
+            valueFrom:
+              configMapKeyRef:
+                name: config-mapp
+                key: DATAB
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: config-mapp
+                key: root.password
+          image: 172.30.1.1:5000/antonio/antonionode@sha256:307baa02f6867aea059689a8aabec663376eeb2aedaacd3425c679ce04b8a3b2
+          imagePullPolicy: Always
+          name: antonionode
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          dnsPolicy: ClusterFirst
+          restartPolicy: Always
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - antonionode
+      from:
+        kind: ImageStreamTag
+        name: node:slim
+        namespace: openshift
+    type: ImageChange

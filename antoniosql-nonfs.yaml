@@ -1,0 +1,331 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: antoniosql
+      openshift.io/deployment.name: antoniosql-1
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-02-27T14:13:40Z
+    generateName: antoniosql-1-
+    labels:
+      app: antoniosql
+      deployment: antoniosql-1
+      deploymentconfig: antoniosql
+    name: antoniosql-1-qkn28
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: antoniosql-1
+      uid: 5952b49f-596b-11ea-8d02-fa163e1a31ab
+    resourceVersion: "2521119"
+    selfLink: /api/v1/namespaces/antonio/pods/antoniosql-1-qkn28
+    uid: 5ab74cab-596b-11ea-8d02-fa163e1a31ab
+  spec:
+    containers:
+    - env:
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          configMapKeyRef:
+            key: mysql.root.password
+            name: special-config
+      image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      imagePullPolicy: IfNotPresent
+      name: antoniosql
+      ports:
+      - containerPort: 3306
+        protocol: TCP
+      resources: {}
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1000340000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/lib/mysql
+        name: pv-antonio-nonfs
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-g8qqt
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-766lc
+    nodeName: localhost
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000340000
+      seLinuxOptions:
+        level: s0:c18,c17
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    volumes:
+    - name: pv-antonio-nonfs
+      persistentVolumeClaim:
+        claimName: pvc-antonio-nonfs
+    - name: default-token-g8qqt
+      secret:
+        defaultMode: 420
+        secretName: default-token-g8qqt
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-02-27T14:13:40Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-02-27T14:13:43Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: 2020-02-27T14:13:40Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://473fa36f93d1a5c32853c62904165298f4b2eee4a63b5f496c79c1b9b1295068
+      image: sha256:8ef375298394132e15e73b900150b54a3340b3d3a80cf2c6adca0a25c904519e
+      imageID: docker-pullable://172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      lastState: {}
+      name: antoniosql
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: 2020-02-27T14:13:42Z
+    hostIP: 9.212.159.114
+    phase: Running
+    podIP: 172.17.0.23
+    qosClass: BestEffort
+    startTime: 2020-02-27T14:13:40Z
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      openshift.io/deployer-pod.completed-at: 2020-02-27 14:13:43 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2020-02-27 14:13:38 +0000 UTC
+      openshift.io/deployer-pod.name: antoniosql-1-deploy
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: antoniosql
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: "1"
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"antoniosql","namespace":"antonio","selfLink":"/apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antoniosql","uid":"58628c9a-596b-11ea-890f-fa163e1a31ab","resourceVersion":"2521069","generation":2,"creationTimestamp":"2020-02-27T14:13:36Z","labels":{"app":"antoniosql"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["antoniosql"],"from":{"kind":"ImageStreamTag","namespace":"openshift","name":"mysql:5.6"},"lastTriggeredImage":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"antoniosql","deploymentconfig":"antoniosql"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"antoniosql","deploymentconfig":"antoniosql"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"volumes":[{"name":"pv-antonio-nonfs","persistentVolumeClaim":{"claimName":"pvc-antonio-nonfs"}}],"containers":[{"name":"antoniosql","image":"172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f","ports":[{"containerPort":3306,"protocol":"TCP"}],"env":[{"name":"MYSQL_ROOT_PASSWORD","valueFrom":{"configMapKeyRef":{"name":"special-config","key":"mysql.root.password"}}}],"resources":{},"volumeMounts":[{"name":"pv-antonio-nonfs","mountPath":"/var/lib/mysql"}],"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"IfNotPresent"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":1,"observedGeneration":1,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]},"conditions":[{"type":"Available","status":"False","lastUpdateTime":"2020-02-27T14:13:36Z","lastTransitionTime":"2020-02-27T14:13:36Z","message":"Deployment config does not have minimum availability."}]}}
+    creationTimestamp: 2020-02-27T14:13:38Z
+    generation: 2
+    labels:
+      app: antoniosql
+      openshift.io/deployment-config.name: antoniosql
+    name: antoniosql-1
+    namespace: antonio
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: antoniosql
+      uid: 58628c9a-596b-11ea-890f-fa163e1a31ab
+    resourceVersion: "2521126"
+    selfLink: /api/v1/namespaces/antonio/replicationcontrollers/antoniosql-1
+    uid: 5952b49f-596b-11ea-8d02-fa163e1a31ab
+  spec:
+    replicas: 1
+    selector:
+      app: antoniosql
+      deployment: antoniosql-1
+      deploymentconfig: antoniosql
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "1"
+          openshift.io/deployment-config.name: antoniosql
+          openshift.io/deployment.name: antoniosql-1
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antoniosql
+          deployment: antoniosql-1
+          deploymentconfig: antoniosql
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                key: mysql.root.password
+                name: special-config
+          image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+          imagePullPolicy: IfNotPresent
+          name: antoniosql
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: pv-antonio-nonfs
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: pv-antonio-nonfs
+          persistentVolumeClaim:
+            claimName: pvc-antonio-nonfs
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-02-27T14:23:10Z
+    labels:
+      app: antoniosql
+    name: antoniosql
+    namespace: antonio
+    resourceVersion: "2523435"
+    selfLink: /api/v1/namespaces/antonio/services/antoniosql
+    uid: ae5e0fe6-596c-11ea-8d02-fa163e1a31ab
+  spec:
+    clusterIP: 172.30.190.134
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      app: antoniosql
+      deploymentconfig: antoniosql
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-02-27T14:13:36Z
+    generation: 2
+    labels:
+      app: antoniosql
+    name: antoniosql
+    namespace: antonio
+    resourceVersion: "2521128"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/antonio/deploymentconfigs/antoniosql
+    uid: 58628c9a-596b-11ea-890f-fa163e1a31ab
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: antoniosql
+      deploymentconfig: antoniosql
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: antoniosql
+          deploymentconfig: antoniosql
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                key: mysql.root.password
+                name: special-config
+          image: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+          imagePullPolicy: IfNotPresent
+          name: antoniosql
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: pv-antonio-nonfs
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: pv-antonio-nonfs
+          persistentVolumeClaim:
+            claimName: pvc-antonio-nonfs
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - antoniosql
+        from:
+          kind: ImageStreamTag
+          name: mysql:5.6
+          namespace: openshift
+        lastTriggeredImage: 172.30.1.1:5000/openshift/mysql@sha256:ad629a897185728349b33073300bb657303a0df14067bab323d72416e31f4f0f
+      type: ImageChange
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2020-02-27T14:13:43Z
+      lastUpdateTime: 2020-02-27T14:13:43Z
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2020-02-27T14:13:44Z
+      lastUpdateTime: 2020-02-27T14:13:44Z
+      message: replication controller "antoniosql-1" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    details:
+      causes:
+      - type: ConfigChange
+      message: config change
+    latestVersion: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    unavailableReplicas: 0
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

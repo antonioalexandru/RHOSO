@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-antonio-nfs2
+  namespace: antonio2
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      name: antoniosql-nfs
+  volumeName: pv-antonio-nfs2
